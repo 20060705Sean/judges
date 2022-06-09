@@ -1,20 +1,24 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-int main() {
-    ios::sync_with_stdio(false);cin.tie(0);
-    int N, i, score;
-    cin >> N;
-    vector<int> scores;
-    for (i = 0;i < N;i++) {
-        cin >> score;
-        scores.push_back(score);
-    }
-    sort(scores.begin(), scores.end());
-    for_each(scores.begin(), scores.end(), [](int s){cout << s << ' ';});
-    vector<int>::iterator m = find_if(scores.begin(), scores.end(), [](int s){return s >= 60;});
-    if (m == scores.begin() && *m >= 60) cout << '\n' << "best case" << '\n' << *m << endl;
-    else if (m == scores.end()) cout << '\n' << *(m - 1) << '\n'  << "worst case"<< endl;
-    else cout << '\n' << *(m - 1) << '\n' << *m;
-    return 0;
+int main(){
+	int n, i;
+	cin >> n;
+	vector<int> score(n);
+	for (i = 0;i < n;i++) cin >> score[i];
+	sort(score.begin(), score.end());
+	for_each(score.begin(), score.end(), [](int k){cout << k << ' ';});
+	cout << endl;
+	if (score[0] >= 60) cout << "best case" << '\n' << score[0];
+	else if(score[score.size() - 1] < 60) cout << score[score.size() - 1] << '\n' << "worst case";
+	else {
+		;
+		for (int pivot = 0;pivot < n;pivot++) {
+			if (score[pivot] < 60 && score[pivot + 1] >= 60) {
+				cout << score[pivot] << '\n' << score[pivot + 1];
+				break;
+			}
+		}
+	}
+	cin >> n;
+	return 0;
 }
